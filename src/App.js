@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+// Require Editor CSS files.
+import "froala-editor/css/froala_style.min.css";
+import "froala-editor/css/froala_editor.pkgd.min.css";
 
-function App() {
+import FroalaEditorComponent from "react-froala-wysiwyg";
+
+import "froala-editor/js/plugins.pkgd.min.js";
+import "froala-editor/css/plugins.pkgd.min.css";
+
+const App = () => {
+  const [model, setModel] = useState("some content");
+  const [array, setArray] = useState([]);
+
+  const onContentChanged = () => {
+    console.log(array);
+  };
+
+  const config = {
+    placeholderText: "Edit Your Content Here!",
+    toolbarButtons: [
+      ["paragraphFormat"],
+      ["insertVideo", "bold", "italic", "textColor", "clearFormatting"],
+      ["formatUL"],
+    ],
+    events: {
+      contentChanged: onContentChanged,
+      focus: () => console.log("focused"),
+    },
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ maxWidth: "1000px" }}>
+      <FroalaEditorComponent
+        tag="textarea"
+        config={config}
+        model={model}
+        onModelChange={setModel}
+      />
+      <button onClick={() => setArray((oldArr) => [...oldArr, "x"])}>
+        Add to state array
+      </button>
+      <button onClick={onContentChanged}>Print state array content</button>
     </div>
   );
-}
+};
 
 export default App;
