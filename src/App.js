@@ -17,15 +17,8 @@ const App = () => {
   };
 
   const config = {
-    placeholderText: "Edit Your Content Here!",
-    toolbarButtons: [
-      ["paragraphFormat"],
-      ["insertVideo", "bold", "italic", "textColor", "clearFormatting"],
-      ["formatUL"],
-    ],
     events: {
       contentChanged: onContentChanged,
-      focus: () => console.log("focused"),
     },
   };
 
